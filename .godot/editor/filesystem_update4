@@ -1,0 +1,11 @@
+res://scene/3/gameboard.tscn
+res://scene/1/god.tscn
+res://scene/4/core.tscn
+res://scene/5/moon.gd
+res://scene/3/restriction.tscn
+res://script/Global.gd
+res://scene/3/restriction.gd
+res://scene/2/planet.gd
+res://scene/3/card.tscn
+res://scene/3/card.gd
+res://scene/3/gameboard.gd
