@@ -43,10 +43,10 @@ func start_race() -> void:
 	init_gods_opponents()
 	roll_gods_order()
 	
-	#for god in gods:
-	#	god.gameboard.refill_hand()
+	for god in gods:
+		god.gameboard.refill_hand()
 	
-	#moon.follow_phase()
+	moon.follow_phase()
 
 
 func init_gods_opponents() -> void:

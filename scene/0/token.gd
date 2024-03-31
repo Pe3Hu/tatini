@@ -28,16 +28,18 @@ func init_basic_setting(input_: Dictionary) -> void:
 	input.subtype = subtype
 	designation.set_attributes(input)
 	
-	input.type = "number"
-	input.subtype = 0
+	match type:
+		"resource":
+			custom_minimum_size = Vector2(Global.vec.size.resource)
+	
 	
 	if input_.has("value"):
+		input.type = "number"
 		input.subtype = input_.value
-		
 	
-	value.set_attributes(input)
-	value.custom_minimum_size = Vector2(Global.vec.size.number)
-	value.number.set("theme_override_font_sizes/font_size", Global.dict.font.size[type])
+		value.set_attributes(input)
+		value.custom_minimum_size = Vector2(Global.vec.size.number)
+		value.number.set("theme_override_font_sizes/font_size", Global.dict.font.size[type])
 	
 	if !input_.has("value"):
 		value.visible = false
@@ -94,3 +96,8 @@ func replicate(token_: MarginContainer) -> void:
 		set_value(token_.get_value())
 	
 	visible = token_.visible
+
+
+func hide_tokens() -> void:
+	value.visible = false
+	designation.visible = false

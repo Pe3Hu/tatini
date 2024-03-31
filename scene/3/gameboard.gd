@@ -29,7 +29,7 @@ func init_basic_setting(input_: Dictionary) -> void:
 	var input = {}
 	input.gameboard = self
 	storage.set_attributes(input_)
-	#init_starter_kit_cards()
+	init_starter_kit_cards()
 	
 	for key in Global.dict.area.next:
 		if key != null:

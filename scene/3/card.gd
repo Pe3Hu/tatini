@@ -3,7 +3,8 @@ extends MarginContainer
 
 #region vars
 @onready var bg = $BG
-@onready var restriction = $HBox/Restriction
+@onready var cost = $Cost
+@onready var resources = $Resources
 
 var proprietor = null
 var area = null
@@ -20,47 +21,28 @@ func set_attributes(input_: Dictionary) -> void:
 
 
 func init_basic_setting(input_: Dictionary) -> void:
-	#custom_minimum_size = Global.vec.size.card.market
-	roll_restriction()
+	custom_minimum_size = Global.vec.size.card.market
+	init_tokens(input_)
 	init_bg()
 
 
-func roll_restriction() -> void:
+func init_tokens(input_: Dictionary) -> void:
 	var input = {}
-	input.card = self
-	input.restrictions = []
+	input.proprietor = self
+	input.type = "card"
+	input.subtype = "cost"
+	input.value = input_.cost
+	cost.set_attributes(input)
 	
-	var weights = {}
-	weights.side = {}
-	weights.side["left"] = 3
-	weights.side["middle"] = 2
-	weights.side["right"] = 3
-	weights.extreme = {}
-	weights.extreme["maximum"] = 1
-	weights.extreme["random"] = 3
-	weights.extreme["minimum"] = 1
-	weights.height = {}
-	weights.height["smaller"] = 1
-	weights.height["equal"] = 3
-	weights.height["larger"] = 1
-	weights.height["none"] = 5
-	weights.criterion = {}
-	weights.criterion["remoteness"] = 1
-	weights.criterion["height"] = 1
-	weights.criterion["none"] = 8
+	input.type = "resource"
 	
-	for type in Global.arr.restriction:
-		var data = {}
-		data.type = type
-		data.subtype = Global.get_random_key(weights[type])
+	for subtype in input_.resources:
+		input.subtype = subtype
+		input.value = input_.resources[subtype]
 		
-		if data.subtype != "none":
-			if data.type == "height":
-				data.value = 1
-			
-			input.restrictions.append(data)
-	
-	restriction.set_attributes(input)
+		var token = Global.scene.token.instantiate()
+		resources.add_child(token)
+		token.set_attributes(input)
 
 
 func init_bg() -> void:
@@ -100,6 +82,7 @@ func set_gameboard_as_proprietor(gameboard_: MarginContainer) -> void:
 	cardstack = proprietor.get(area)
 	cardstack.cards.add_child(self)
 	
+	cost.visible = false
 	custom_minimum_size = Global.vec.size.card.gameboard
 	size = Global.vec.size.card.gameboard
 	set_selected(false)

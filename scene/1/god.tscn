@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://b6xt38h3tpi5k"]
+[gd_scene load_steps=6 format=3 uid="uid://b6xt38h3tpi5k"]
 
 [ext_resource type="Script" path="res://scene/1/god.gd" id="1_ceqed"]
 [ext_resource type="PackedScene" uid="uid://likoypjmwtku" path="res://scene/4/core.tscn" id="2_2dqbg"]
 [ext_resource type="PackedScene" uid="uid://dtop6ce8ht5b" path="res://scene/3/gameboard.tscn" id="2_xx0x2"]
+[ext_resource type="PackedScene" uid="uid://dg1d02vgo3lsj" path="res://scene/4/dominion.tscn" id="3_12vj1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7paps"]
 
@@ -39,6 +40,9 @@ theme_override_constants/separation = 0
 alignment = 1
 
 [node name="Core" parent="HBox/VBox" instance=ExtResource("2_2dqbg")]
+layout_mode = 2
+
+[node name="Dominion" parent="HBox/VBox" instance=ExtResource("3_12vj1")]
 layout_mode = 2
 
 [node name="Gameboard" parent="HBox/VBox" instance=ExtResource("2_xx0x2")]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c062i4mf0dfmg"
-path="res://.godot/imported/canyon.png-fbc93cac00568c365e85c8ae2f20a022.ctex"
+uid="uid://cxb2dt20eo22r"
+path="res://.godot/imported/bushe.png-08f0af2bdff8481c648617538de406e7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://asset/png/block/canyon.png"
-dest_files=["res://.godot/imported/canyon.png-fbc93cac00568c365e85c8ae2f20a022.ctex"]
+source_file="res://asset/png/terrain/bushe.png"
+dest_files=["res://.godot/imported/bushe.png-08f0af2bdff8481c648617538de406e7.ctex"]
 
 [params]
 

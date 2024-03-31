@@ -102,7 +102,8 @@ func incoming_phase() -> void:
 
 
 func selecting_phase() -> void:
-	god.gameboard.storage.merchandising()
+	return
+	#god.gameboard.storage.merchandising()
 	#follow_phase()
 
 

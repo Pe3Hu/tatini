@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bqpgpsryasn2"
-path="res://.godot/imported/lake.png-91e2af193c4f6170a1cff4d642c954b5.ctex"
+uid="uid://c062i4mf0dfmg"
+path="res://.godot/imported/canyon.png-d30b174f5b8f3063237682aaceabc7dc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://asset/png/block/lake.png"
-dest_files=["res://.godot/imported/lake.png-91e2af193c4f6170a1cff4d642c954b5.ctex"]
+source_file="res://asset/png/terrain/canyon.png"
+dest_files=["res://.godot/imported/canyon.png-d30b174f5b8f3063237682aaceabc7dc.ctex"]
 
 [params]
 

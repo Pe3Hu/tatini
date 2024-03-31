@@ -26,12 +26,21 @@ func _ready() -> void:
 func init_arr() -> void:
 	arr.resource = ["gold", "power"]
 	arr.indicator = ["health"]
-	arr.restriction = ["side", "criterion", "extreme", "height"]
+	arr.restriction = ["side", "height", "extreme", "criterion"]
 
 
 func init_num() -> void:
 	num.index = {}
 	num.index.card = 0
+	
+	num.dominion = {}
+	num.dominion.n = 12
+	
+	num.terrain = {}
+	num.terrain.rank = 4
+	
+	num.market = {}
+	num.market.n = 3
 
 
 func init_dict() -> void:
@@ -39,6 +48,8 @@ func init_dict() -> void:
 	init_card()
 	init_season()
 	init_area()
+	
+	init_terrain()
 
 
 func init_neighbor() -> void:
@@ -91,13 +102,16 @@ func init_card() -> void:
 	dict.card = {}
 	dict.card.type = {}
 	dict.card.type["gold"] = {}
-	dict.card.type["gold"][1] = 5
-	dict.card.type["gold"][2] = 3
-	dict.card.type["gold"][3] = 1
+	dict.card.type["gold"][1] = 8
 	
 	dict.card.type["power"] = {}
 	dict.card.type["power"][1] = 2
-	dict.card.type["power"][2] = 1
+	
+	dict.acronym = {}
+	dict.acronym["e"] = "enlarge"
+	dict.acronym["d"] = "diminish"
+	dict.acronym["r"] = "repeat"
+	dict.acronym["s"] = "skip"
 
 
 func init_season() -> void:
@@ -123,21 +137,83 @@ func init_area() -> void:
 	dict.area.prior["hand"] = "available"
 
 
-func init_emptyjson() -> void:
-	dict.emptyjson = {}
-	dict.emptyjson.title = {}
+func init_terrain() -> void:
+	dict.terrain = {}
+	dict.terrain.title = {}
+	dict.terrain.influence = {}
+	dict.terrain.biome = {}
 	
-	var path = "res://asset/json/.json"
+	var path = "res://asset/json/tatini_terrain.json"
 	var array = load_data(path)
+	var exceptions = ["title"]
 	
-	for emptyjson in array:
+	
+	for terrain in array:
 		var data = {}
+		data.pattern = {}
 		
-		for key in emptyjson:
-			if key != "title":
-				data[key] = emptyjson[key]
+		for key in terrain:
+			if !exceptions.has(key):
+				var words = key.split(" ")
+				
+				if words.size() > 1:
+					var pattern = terrain[key].split(",")
+					data.pattern[words[0]] = pattern 
+				else:
+					data[key] = terrain[key]
 		
-		dict.emptyjson.title[emptyjson.title] = data
+		dict.terrain.title[terrain.title] = data
+		
+		if !dict.terrain.biome.has(terrain.biome):
+			dict.terrain.biome[terrain.biome] = []
+		
+		dict.terrain.biome[terrain.biome].append(terrain.title)
+	
+	exceptions = ["canyon", "rock", "bush"]
+	
+	for terrain in dict.terrain.title:
+		var description = dict.terrain.title[terrain]
+		
+		for _i in range(1, num.terrain.rank + 1):
+			var data = {}
+			data.terrain = terrain
+			data.rank = _i
+			var influence = description.value + description.rank * (_i - 1)
+			data.values = [int(influence)]
+			
+			for order in description.pattern:
+				var k = description.count + _i - 1
+				
+				if terrain == "rock":
+					k = 1
+				
+				for _j in k:
+					for acronym in description.pattern[order]:
+						var designation = dict.acronym[acronym]
+						var value = int(data.values.back())
+						
+						if exceptions.has(terrain):
+							var index = data.values.size() - 2
+							value = int(data.values[index])
+						
+						match designation:
+							"enlarge":
+								value += 1
+							"diminish":
+								value -= 1
+							"skip":
+								value = 0
+						
+						data.values.append(value)
+						influence += value
+			
+			influence = int(influence)
+			
+			if data.values.size() <= num.dominion.n:
+				if !dict.terrain.influence.has(influence):
+					dict.terrain.influence[influence] = []
+				
+				dict.terrain.influence[influence].append(data)
 
 
 func init_node() -> void:
@@ -154,6 +230,12 @@ func init_scene() -> void:
 	scene.area = load("res://scene/2/area.tscn")
 	
 	scene.card = load("res://scene/3/card.tscn")
+	
+	scene.zone = load("res://scene/4/zone.tscn")
+	
+	scene.disaster = load("res://scene/5/disaster.tscn")
+	
+	
 
 
 func init_vec():
@@ -161,13 +243,18 @@ func init_vec():
 	vec.size.sixteen = Vector2(16, 16)
 	vec.size.number = Vector2(vec.size.sixteen)
 	
-	vec.size.token = Vector2(64, 64)
+	vec.size.token = Vector2(32, 32)
 	vec.size.card = {}
 	vec.size.card.market = Vector2(vec.size.token.x * 2, vec.size.token.y)
 	vec.size.card.gameboard = Vector2(vec.size.token.x, vec.size.token.y)
 	vec.size.bar = Vector2(128, 16)
 	vec.size.gameboard = Vector2(vec.size.token.x * 6, vec.size.token.y * 5)
 	vec.size.restriction = vec.size.token * 2
+	vec.size.resource = vec.size.token * 1.75
+	
+	vec.size.zone = {}
+	vec.size.zone.top = Vector2(vec.size.token.x, vec.size.token.y* 3)
+	vec.size.zone.bottom = Vector2(vec.size.token.x, vec.size.token.y * 3)
 	
 	init_window_size()
 
@@ -200,11 +287,14 @@ func init_font():
 	dict.font = {}
 	dict.font.size = {}
 	dict.font.size["resource"] = 24
-	dict.font.size["card"] = 24
+	dict.font.size["card"] = 18
+	dict.font.size["terrain"] = 18
 	dict.font.size["season"] = 18
 	dict.font.size["phase"] = 18
 	dict.font.size["moon"] = 18
 	dict.font.size["restriction"] = 18
+	dict.font.size["index"] = 18
+	dict.font.size["influence"] = 18
 
 
 func save(path_: String, data_: String):

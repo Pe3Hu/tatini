@@ -1,0 +1,75 @@
+[
+ {
+  "title": "grass",
+  "biome": "nature",
+  "first pattern": "r",
+  "count": 2,
+  "value": 1,
+  "rank": 0
+ },
+ {
+  "title": "tree",
+  "biome": "nature",
+  "value": 3,
+  "rank": 1
+ },
+ {
+  "title": "bush",
+  "biome": "nature",
+  "first pattern": "s,r",
+  "count": 2,
+  "value": 1,
+  "rank": 0
+ },
+ {
+  "title": "rock",
+  "biome": "earth",
+  "first pattern": "s,r",
+  "count": 1,
+  "value": 2,
+  "rank": 1
+ },
+ {
+  "title": "mountain",
+  "biome": "earth",
+  "first pattern": "e",
+  "second pattern": "d",
+  "count": 1,
+  "value": 1,
+  "rank": 0
+ },
+ {
+  "title": "canyon",
+  "biome": "earth",
+  "first pattern": "s,d",
+  "second pattern": "s,e",
+  "count": 1,
+  "value": 2,
+  "rank": 1
+ },
+ {
+  "title": "lake",
+  "biome": "water",
+  "first pattern": "d",
+  "second pattern": "e",
+  "count": 2,
+  "value": 2,
+  "rank": 1
+ },
+ {
+  "title": "sea",
+  "biome": "water",
+  "first pattern": "e",
+  "count": 2,
+  "value": 1,
+  "rank": 0
+ },
+ {
+  "title": "river",
+  "biome": "water",
+  "first pattern": "e,d",
+  "count": 2,
+  "value": 1,
+  "rank": 0
+ }
+]

@@ -4,6 +4,7 @@ extends MarginContainer
 #region vars
 @onready var gameboard = $HBox/VBox/Gameboard
 @onready var core = $HBox/VBox/Core
+@onready var dominion = $HBox/VBox/Dominion
 
 var pantheon = null
 var planet = null
@@ -23,6 +24,7 @@ func init_basic_setting() -> void:
 	input.god = self
 	gameboard.set_attributes(input)
 	core.set_attributes(input)
+	dominion.set_attributes(input)
 #endregion
 
 
